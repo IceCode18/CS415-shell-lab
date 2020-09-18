@@ -34,6 +34,8 @@ int main(int argc, char **argv){
         /* printf("%s\n", tokens[num_tokens]); */
         token_ptr = strtok(NULL, " ");
     }
+    /* Mark the end of tokens with a NULL pointer */
+    tokens[num_tokens] = 0;
     
     /* print elements of token array */
     for(int i = 0; i < num_tokens; i++){
