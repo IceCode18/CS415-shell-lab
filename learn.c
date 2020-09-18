@@ -37,7 +37,7 @@ int main(int argc, char **argv){
     
     /* print elements of token array */
     for(int i = 0; i < num_tokens; i++){
-        printf("%s\n", tokens[i]); 
+        printf("Token %i : %s\n", i, tokens[i]); 
     }
     /* printf("%s\n",buffer); */
     
