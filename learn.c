@@ -1,8 +1,8 @@
 #include <stdio.h>
-#include <stlib.h>
+#include <stdlib.h>
 
-#define BUFFER_SIZE = 3000
-#define TOKENS_SIZE = 50
+#define BUFFER_SIZE 3000
+#define TOKENS_SIZE 50
 
 int main(int argc, char **argv){
     char buffer[BUFFER_SIZE];
@@ -12,6 +12,7 @@ int main(int argc, char **argv){
 
     char *token_ptr;
     
-    
+    fgets(tokens, TOKENS_SIZE, stdin);
+    printf("%s\n",tokens);
     
 }
