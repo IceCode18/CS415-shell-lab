@@ -10,7 +10,7 @@ int main(int argc, char **argv){
     /* Single string & max number of characters for input */
     char buffer[BUFFER_SIZE];
 
-    /* Array of strings & max number of characters for each token */
+    /* Array of tokens & max number of tokens */
     char *tokens[TOKENS_SIZE];
     int num_tokens = 0;
     
@@ -27,10 +27,18 @@ int main(int argc, char **argv){
     /* tokenize user input */
     token_ptr = strtok(buffer, " ");
     while(token_ptr != NULL){
-        printf("%s\n", token_ptr);
+        /* store token into a specific index in array */
+        tokens[num_tokens] = token_ptr;
+        /* increment tokens counter to keep track of total number of tokens */
+        num_tokens++;
+        /* printf("%s\n", tokens[num_tokens]); */
         token_ptr = strtok(NULL, " ");
     }
     
+    /* print elements of token array */
+    for(int i = 0; i < num_tokens; i++){
+        printf("%s\n", tokens[i]); 
+    }
     /* printf("%s\n",buffer); */
     
     return 0;
