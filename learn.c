@@ -1,47 +1,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
+// #include <direct.h>
 
+// Constants
 #define BUFFER_SIZE 3000
 #define TOKENS_SIZE 50
 
-int main(int argc, char **argv){
-    
-    /* Single string & max number of characters for input */
-    char buffer[BUFFER_SIZE];
+//external methods
+int ls(char *path);
 
-    /* Array of tokens & max number of tokens */
-    char *tokens[TOKENS_SIZE];
-    int num_tokens = 0;
-    
-    /* token pointer */
-    char *token_ptr;
-    
-    /* Read user input */
-    printf("Enter input: ");
-    fgets(buffer, BUFFER_SIZE, stdin);
-    
-    /* Strip next line character from input */
-    buffer[strcspn(buffer, "\n")] = 0;
-    
-    /* tokenize user input */
-    token_ptr = strtok(buffer, " ");
-    while(token_ptr != NULL){
-        /* store token into a specific index in array */
-        tokens[num_tokens] = token_ptr;
-        /* increment tokens counter to keep track of total number of tokens */
-        num_tokens++;
-        /* printf("%s\n", tokens[num_tokens]); */
-        token_ptr = strtok(NULL, " ");
-    }
-    /* Mark the end of tokens with a NULL pointer */
-    tokens[num_tokens] = 0;
-    
-    /* print elements of token array */
-    for(int i = 0; i < num_tokens; i++){
-        printf("Token %i : %s\n", i, tokens[i]); 
-    }
-    /* printf("%s\n",buffer); */
+int main(int argc, char **argv){
+        // Initialize variable
+        char buffer[BUFFER_SIZE];
+        char *arguments[TOKENS_SIZE];
+        char *token_ptr;
+
+        // Show shell prompt
+        char dir_buff[FILENAME_MAX];
+        getcwd( dir_buff, FILENAME_MAX);
+        printf("%s$$$ ", dir_buff);
+        // Read Input
+        fgets(buffer, BUFFER_SIZE, stdin);
+        buffer[strcspn(buffer, "\n")] = 0;
+        // Tokenize Input
+        int num_arguments = 0;
+        token_ptr = strtok(buffer, " ");
+        while(token_ptr != NULL){
+            arguments[num_arguments] = token_ptr;
+            num_arguments++;
+            token_ptr = strtok(NULL, " ");
+        }
+        arguments[num_arguments] = 0;
     
     return 0;
 }
+
