@@ -50,6 +50,12 @@ int main(int argc, char **argv){
                 perror("");
             }  
         }
+        else if(strcmp("mkdir", command)==0){ // cd
+            if (mkdir(arguments[1]) != 0){
+                printf("ERROR! Cannot create \'%s\' directory : ", arguments[1]);
+                perror("");
+            }  
+        }
         else{ // Command Not Found
             printf("ERROR: Command %s not found\n", command);
         }
