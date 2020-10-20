@@ -8,17 +8,7 @@
 
 
 void execute_normal(char **argv);
-void execute_redirect(char **argv);
-
-// int main(int argc, char** argv)
-// {
-
-// 	char *cmd[] = { "/bin/ls", "-l", (char*)0};
-	
-// 	execute_normal(cmd);
-// 	execute_redirect(cmd);
-// }
-
+void execute_redirect(char **argv, char *outPath);
 
 void execute_normal(char **argv)
 {
@@ -28,8 +18,7 @@ void execute_normal(char **argv)
 	pid = fork();
 	if (pid < 0) 
 	{
-		printf("ERROR! Fork failed: ");
-		perror("fork");
+		perror("ERROR! Fork failed");
 		printf("\n");
 		exit(1);
 	}
@@ -37,7 +26,7 @@ void execute_normal(char **argv)
 	{
 		if (execvp(*argv, argv) < 0)
 		{
-			perror("execvp");
+			perror("ERROR! Cannot execute process");
 			exit(1);
 		}	
 	}
@@ -48,7 +37,7 @@ void execute_normal(char **argv)
 
 }
 
-void execute_redirect(char **argv)
+void execute_redirect(char **argv, char *outPath)
 {
 	pid_t pid;
 	int status;
@@ -58,17 +47,19 @@ void execute_redirect(char **argv)
 	pid = fork();
 	if (pid < 0) 
 	{
-		printf("ERROR fork failed\n");
+		perror("ERROR! Fork failed");
+		printf("\n");
+		
 		exit(1);
 	}
 	else if (pid == 0) //child thread
 	{
 		defout = dup(1);
-		fd=open("/home/cslade/cs415/lsout.txt",O_RDWR|O_CREAT,0644);
+		fd=open(outPath,O_RDWR|O_CREAT,0644);
 		dup2(fd,1);
 		if (execvp(*argv, argv) < 0)
 		{
-			perror("execvp");
+			perror("ERROR! Cannot execute process");
 			exit(1);
 		}
 		close(fd);	

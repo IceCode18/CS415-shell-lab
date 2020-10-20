@@ -1,0 +1,7 @@
+*./a.out*
+*happy*
+*birthday*
+*to*
+*me*
+*>*
+*output.txt*

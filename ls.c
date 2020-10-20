@@ -14,8 +14,7 @@ int ls(char *path){
 
         // Open Directory
         if ((dip = opendir(path)) == NULL){
-                printf("ERROR! ");
-                perror("opendir");
+                perror("ERROR! Cannot open directory");
                 return 0;
         }
 
@@ -33,7 +32,7 @@ int ls(char *path){
 
         // Close Directory
         if (closedir(dip) == -1){
-                perror("closedir");
+                perror("Cannot close directory");
                 return 0;
         }
 

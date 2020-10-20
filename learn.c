@@ -12,7 +12,7 @@
 //external methods
 int ls(char *path);
 void execute_normal(char **argv);
-void execute_redirect(char **argv);
+void execute_redirect(char **argv, char *outPath);
 
 int main(int argc, char **argv){
     while(1){
@@ -53,18 +53,21 @@ int main(int argc, char **argv){
         else if(strcmp("cd", command)==0){ // cd
             if (chdir(arguments[1]) != 0){
                 printf("ERROR! Cannot change directory to %s: ", arguments[1]);
+                fflush(stdout);
                 perror("");
             }  
         }
         else if(strcmp("mkdir", command)==0){ // mkdir
             if (mkdir(arguments[1],0777) != 0){
-                printf("ERROR! Cannot create \'%s\' directory : ", arguments[1]);
+                printf("ERROR! Cannot create \'%s\' directory: ", arguments[1]);
+                fflush(stdout);
                 perror("");
             }  
         }
         else if(strcmp("rmdir", command)==0){ // rmdir
             if (rmdir(arguments[1]) != 0){
-                printf("ERROR! Cannot remove \'%s\' directory : ", arguments[1]);
+                printf("ERROR! Cannot remove \'%s\' directory: ", arguments[1]);
+                fflush(stdout);
                 perror("");
             }  
         }
@@ -78,7 +81,16 @@ int main(int argc, char **argv){
         }
         else{ // Command Not Found
             // printf("ERROR: Command %s not found\n", command);
-            execute_normal(arguments);
+            int normalExecute = 1;
+            for(int outfileIndex = 0; outfileIndex < num_arguments-1; outfileIndex++){
+                if(strcmp(">", arguments[outfileIndex])==0){
+                    normalExecute--;
+                    execute_redirect(arguments,arguments[outfileIndex+1]);
+                }
+            }
+            if(normalExecute == 1){
+                 execute_normal(arguments);
+            }
         }
     }
     
