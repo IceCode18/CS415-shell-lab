@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-// #include <direct.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 // Constants
 #define BUFFER_SIZE 3000
 #define TOKENS_SIZE 50
+
+//external methods
+int ls(char *path);
 
 int main(int argc, char **argv){
     while(1){
@@ -30,7 +34,7 @@ int main(int argc, char **argv){
             num_arguments++;
             token_ptr = strtok(NULL, " ");
         }
-        arguments[num_arguments] = 0
+        arguments[num_arguments] = 0;
 
         // Parse Input
         char *command = arguments[0];
@@ -51,7 +55,7 @@ int main(int argc, char **argv){
             }  
         }
         else if(strcmp("mkdir", command)==0){ // mkdir
-            if (mkdir(arguments[1]) != 0){
+            if (mkdir(arguments[1],0777) != 0){
                 printf("ERROR! Cannot create \'%s\' directory : ", arguments[1]);
                 perror("");
             }  
@@ -61,6 +65,14 @@ int main(int argc, char **argv){
                 printf("ERROR! Cannot remove \'%s\' directory : ", arguments[1]);
                 perror("");
             }  
+        }
+        else if(strcmp("ls", command)==0){ // ls
+            if(num_arguments == 1){
+                ls(".");
+            }
+            else{
+                ls(arguments[1]);
+            }
         }
         else{ // Command Not Found
             printf("ERROR: Command %s not found\n", command);
