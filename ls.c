@@ -3,6 +3,8 @@
 #include <dirent.h>
 #include <errno.h>
 
+int ls(char *path);
+
 int ls(char *path){
 
         // Initialize Variables

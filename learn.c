@@ -11,6 +11,8 @@
 
 //external methods
 int ls(char *path);
+void execute_normal(char **argv);
+void execute_redirect(char **argv);
 
 int main(int argc, char **argv){
     while(1){
@@ -75,7 +77,8 @@ int main(int argc, char **argv){
             }
         }
         else{ // Command Not Found
-            printf("ERROR: Command %s not found\n", command);
+            // printf("ERROR: Command %s not found\n", command);
+            execute_normal(arguments);
         }
     }
     
