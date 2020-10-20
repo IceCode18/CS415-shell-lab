@@ -44,6 +44,12 @@ int main(int argc, char **argv){
             }
             printf("\n");
         }
+        else if(strcmp("cd", command)==0){ // cd
+            if (chdir(arguments[1]) != 0){
+                printf("ERROR! Cannot change directory to %s: ", arguments[1]);
+                perror("");
+            }  
+        }
         else{ // Command Not Found
             printf("ERROR: Command %s not found\n", command);
         }
